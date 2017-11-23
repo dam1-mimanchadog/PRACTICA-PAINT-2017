@@ -25,12 +25,15 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.StyleContext.SmallAttributeSet;
 
@@ -80,7 +83,7 @@ public class VentanaPrincipal {
 	ImageIcon icon;
 	JPopupMenu popup;
 	JOptionPane tamaño = new JOptionPane();
-	
+	VentanaPrincipal auxVentana = this;
 	// Constructor, marca el tamaÃ±o y el cierre del frame
 	public VentanaPrincipal() {
 		ventana = new JFrame();
@@ -260,7 +263,9 @@ public class VentanaPrincipal {
 					break;
 
 				case IMAGEN:
+					if(SwingUtilities.isRightMouseButton(e)) {
 					añadeImagen(e);
+					}
 				default:
 					break;
 				}
@@ -391,7 +396,9 @@ public class VentanaPrincipal {
 			}
 
 			pintarImagen(e);
-
+ 
+		}else {
+			
 		}
 
 	}
@@ -407,10 +414,18 @@ public class VentanaPrincipal {
 	private void pintarMenu() {
 		BufferedImage aux;
 		JLabel label;
+		JMenuItem item;
 		popup = new JPopupMenu("Galeria de imagenes");
+		popup.add(item = new JMenuItem(new ImageIcon("\\ImagenesGaleria\\whats.png")));
+		popup.add(item = new JMenuItem(new ImageIcon("\\ImagenesGaleria\\malo.png")));
+		popup.add(item = new JMenuItem(new ImageIcon("\\ImagenesGaleria\\llorar.png")));
+		popup.add(item = new JMenuItem(new ImageIcon("\\ImagenesGaleria\\guiño.png")));
+		popup.add(item = new JMenuItem(new ImageIcon("\\ImagenesGaleria\\beso.png")));
+		popup.add(item = new JMenuItem(new ImageIcon("\\ImagenesGaleria\\abrazar.png")));
 		
 		
-		
+		lienzo.addMouseListener(new MousePopupListener(popup, auxVentana));
+				
 	}
 
 }
